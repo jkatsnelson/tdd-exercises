@@ -5,9 +5,9 @@
         .module('app.dashboard')
         .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$q', 'dataservice', 'logger'];
+    DashboardController.$inject = ['$q', 'dataservice', 'logger', 'weatherService'];
     /* @ngInject */
-    function DashboardController($q, dataservice, logger) {
+    function DashboardController($q, dataservice, logger, weatherService) {
         var vm = this;
         vm.news = {
             title: 'exerciseJune24',
@@ -16,7 +16,10 @@
         vm.weather = {
             title: 'Weather',
             description: "What weather are you looking for?",
-            input: ''
+            input: '',
+            inputChanged: function(model, weatherData) {
+                weatherService.findLocation(model, weatherData);
+            }
         }
         vm.messageCount = 0;
         vm.people = [];

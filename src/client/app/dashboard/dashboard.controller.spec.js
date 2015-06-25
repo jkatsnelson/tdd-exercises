@@ -5,11 +5,16 @@ describe('DashboardController', function() {
 
     beforeEach(function() {
         bard.appModule('app.dashboard');
-        bard.inject('$controller', '$log', '$q', '$rootScope', 'dataservice');
+        bard.inject('$controller', '$log', '$q', '$rootScope', 'dataservice', 'weatherService');
     });
 
     beforeEach(function () {
         sinon.stub(dataservice, 'getPeople').returns($q.when(people));
+        sinon.stub(weatherService, 'findLocation').returns({
+            then: function() {
+                return;
+            }
+        });
         controller = $controller('DashboardController');
         $rootScope.$apply();
     });
@@ -41,9 +46,20 @@ describe('DashboardController', function() {
             it('should have people count of 5', function () {
                 expect(controller.people).to.have.length(7);
             });
-            it('should have a weather input model', function() {
-                expect(controller.weather.input).to.be.defined;
+        });
+        describe("weather functionality", function() {
+            it('should have an empty weather input model', function() {
+                expect(controller.weather.input).to.be.empty;
             });
+            describe("inputChanged", function() {
+                it("should be a function", function() {
+                    expect(controller.weather.inputChanged).to.be.instanceOf(Function);
+                });
+                it("should call the weatherService's findLocation method", function() {
+                    controller.weather.inputChanged();
+                    expect(weatherService.findLocation.callCount).equal(1);
+                });
+            })
         });
     });
 });
