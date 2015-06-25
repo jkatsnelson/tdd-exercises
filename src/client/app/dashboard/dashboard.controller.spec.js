@@ -41,6 +41,9 @@ describe('DashboardController', function() {
             it('should have people count of 5', function () {
                 expect(controller.people).to.have.length(7);
             });
+            it('should have a weather input model', function() {
+                expect(controller.weather.input).to.be.defined;
+            });
         });
     });
 });

@@ -13,6 +13,11 @@
             title: 'exerciseJune24',
             description: 'Hot Towel Angular is a SPA template for Angular developers.'
         };
+        vm.weather = {
+            title: 'Weather',
+            description: "What weather are you looking for?",
+            input: ''
+        }
         vm.messageCount = 0;
         vm.people = [];
         vm.title = 'Dashboard';
