@@ -72,6 +72,7 @@
                             <input ng-model="vm.weather.input" ng-change="vm.weather.inputChanged(vm.weather.input, vm.weather)" ng-model-options="{ debounce: 1000 }" />
                             <div ng-if="vm.weather.data">
                                 {{vm.weather.data.name}}
+                                {{vm.weather.data.main.temp | temperature: 'KF' }}
                             </div>
                         </div>
                         <div class="widget-foot">
